@@ -1,7 +1,7 @@
 local config = {
   updater = { channel = "nightly", auto_reload = true },
 
-  colorscheme = "coral",
+  colorscheme = "duskfox",
 
   header = {
     "                                                     ___",
@@ -117,7 +117,8 @@ local config = {
   plugins = {
     init = {
       { "tpope/vim-surround" },
-      { "airblade/vim-rooterooterr" },
+      { "airblade/vim-rooter" },
+      { "EdenEast/nightfox.nvim" },
     },
     ["null-ls"] = function(config)
       local null_ls = require "null-ls"
@@ -216,6 +217,29 @@ local config = {
 
   polish = function() end,
 }
+
+require("nightfox").setup {
+  options = {},
+  palettes = {
+    duskfox = { comment = "#bbaa77" },
+  },
+  specs = {
+    all = {
+      syntax = {
+        builtin2 = "#ffffff",
+        -- builtin1 = "#fe8a9a",
+        -- builtin2 = "#fe8a9a",
+        -- const = "#fe8a9a",
+        -- func = "#fe8a9a",
+        -- variable = "#fe8a9a",
+        string = "#ecbb77",
+        number = "#ff7700",
+      },
+    },
+  },
+}
+
+if true then print "ok" end
 
 local _options = {
   opt = {
