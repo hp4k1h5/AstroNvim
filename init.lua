@@ -1,28 +1,37 @@
 local config = {
   updater = { channel = "nightly", auto_reload = true },
 
-  colorscheme = "default_theme",
+  colorscheme = "coral",
 
   header = {
-    " █████  ███████ ████████ ██████   ██████",
-    "██   ██ ██         ██    ██   ██ ██    ██",
-    "███████ ███████    ██    ██████  ██    ██",
-    "██   ██      ██    ██    ██   ██ ██    ██",
-    "██   ██ ███████    ██    ██   ██  ██████",
-    " ",
-    "    ███    ██ ██    ██ ██ ███    ███",
-    "    ████   ██ ██    ██ ██ ████  ████",
-    "    ██ ██  ██ ██    ██ ██ ██ ████ ██",
-    "    ██  ██ ██  ██  ██  ██ ██  ██  ██",
-    "    ██   ████   ████   ██ ██      ██",
+    "                                                     ___",
+    "                                                  ,o88888",
+    "                                               ,o8888888'",
+    '                         ,:o:o:oooo.        ,8O88Pd8888"',
+    "                     ,.::.::o:ooooOoOoO. ,oO8O8Pd888'\"",
+    '                   ,.:.::o:ooOoOoOO8O8OOo.8OOPd8O8O"',
+    '                  , ..:.::o:ooOoOOOO8OOOOo.FdO8O8"',
+    '                 , ..:.::o:ooOoOO8O888O8O,COCOO"',
+    '                , . ..:.::o:ooOoOOOO8OOOOCOCO"',
+    '                 . ..:.::o:ooOoOoOO8O8OCCCC"o',
+    '                    . ..:.::o:ooooOoCoCCC"o:o',
+    '                    . ..:.::o:o:,cooooCo"oo:o:',
+    "                 `   . . ..:.:cocoooo\"'o:o:::'",
+    "                 .`   . ..::ccccoc\"'o:o:o:::'",
+    "                :.:.    ,c:cccc\"':.:.:.:.:.'",
+    "              ..:.:\"'`::::c:\"'..:.:.:.:.:.'",
+    "            ...:.'.:.::::\"'    . . . . .'",
+    "           .. . ....:.\"' `   .  . . ''",
+    "         . . . ....\"'",
+    "         .. . .\"'",
+    "        .",
   },
 
   -- Default theme configuration
   default_theme = {
     colors = {
-      fg = "#abbfcf",
+      fg = "#44a0cc",
       bg = "#222222",
-      -- bg = "NONE",
     },
     highlights = function(hl)
       local C = require "default_theme.colors"
@@ -61,14 +70,29 @@ local config = {
   diagnostics = { virtual_text = true, underline = true },
 
   lsp = {
+    root_dir = function() end,
+
     servers = {
       -- "pyright"
+    },
+    ["server-settings"] = {
+      zk = {
+        picker = "telescope",
+        lsp = {
+          config = {
+            cmd = { "zk", "lsp" },
+            name = "zk",
+            -- on_attach = ...
+          },
+          auto_attach = { enabled = true, filetypes = { "markdown" } },
+        },
+      },
     },
     formatting = {
       format_on_save = {
         enabled = true,
       },
-      timeout_ms = 1000,
+      timeout_ms = 3000,
     },
     mappings = {
       n = {
@@ -93,11 +117,13 @@ local config = {
   plugins = {
     init = {
       { "tpope/vim-surround" },
+      { "airblade/vim-rooterooterr" },
     },
     ["null-ls"] = function(config)
-      -- local null_ls = require "null-ls"
-      -- config.sources = {
-      -- }
+      local null_ls = require "null-ls"
+      config.sources = {
+        null_ls.builtins.diagnostics.mypy,
+      }
       return config
     end,
     treesitter = {
@@ -121,80 +147,68 @@ local config = {
     ["mason-nvim-dap"] = {
       -- ensure_installed = { "python" },
     },
-    zk = {
-      picker = "telescope",
-      lsp = {
-        config = {
-          cmd = { "zk", "lsp" },
-          name = "zk",
-          -- on_attach = ...
-        },
-        auto_attach = { enabled = true, filetypes = { "markdown" } },
+    luasnip = {
+      filetype_extend = {
+        -- javascript = { "javascriptreact" },
+      },
+      vscode = {
+        paths = {},
       },
     },
-  },
 
-  luasnip = {
-    filetype_extend = {
-      -- javascript = { "javascriptreact" },
+    ["nvim-autopairs"] = {
+      map_c_h = true,
+      map_c_w = true,
+      map_bs = true,
     },
-    vscode = {
-      paths = {},
+
+    cmp = {
+      source_priority = {
+        nvim_lsp = 1000,
+        luasnip = 750,
+        buffer = 500,
+        path = 250,
+      },
     },
-  },
 
-  ["nvim-autopairs"] = {
-   map_c_h = true,
-   map_c_w = true,
-   map_bs = true,
-},
-
-  cmp = {
-    source_priority = {
-      nvim_lsp = 1000,
-      luasnip = 750,
-      buffer = 500,
-      path = 250,
+    -- Customize Heirline options
+    heirline = {
+      -- -- Customize different separators between sections
+      -- separators = {
+      --   tab = { "", "" },
+      -- },
+      -- -- Customize colors for each element each element has a `_fg` and a `_bg`
+      -- colors = function(colors)
+      --   colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
+      --   return colors
+      -- end,
+      -- -- Customize attributes of highlighting in Heirline components
+      -- attributes = {
+      --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
+      --   git_branch = { bold = true }, -- bold the git branch statusline component
+      -- },
+      -- -- Customize if icons should be highlighted
+      -- icon_highlights = {
+      --   breadcrumbs = false, -- LSP symbols in the breadcrumbs
+      --   file_icon = {
+      --     winbar = false, -- Filetype icon in the winbar inactive windows
+      --     statusline = true, -- Filetype icon in the statusline
+      --   },
+      -- },
     },
-  },
 
-  -- Customize Heirline options
-  heirline = {
-    -- -- Customize different separators between sections
-    -- separators = {
-    --   tab = { "", "" },
-    -- },
-    -- -- Customize colors for each element each element has a `_fg` and a `_bg`
-    -- colors = function(colors)
-    --   colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
-    --   return colors
-    -- end,
-    -- -- Customize attributes of highlighting in Heirline components
-    -- attributes = {
-    --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-    --   git_branch = { bold = true }, -- bold the git branch statusline component
-    -- },
-    -- -- Customize if icons should be highlighted
-    -- icon_highlights = {
-    --   breadcrumbs = false, -- LSP symbols in the breadcrumbs
-    --   file_icon = {
-    --     winbar = false, -- Filetype icon in the winbar inactive windows
-    --     statusline = true, -- Filetype icon in the statusline
-    --   },
-    -- },
-  },
-
-  -- Modify which-key registration (Use this with mappings table in the above.)
-  ["which-key"] = {
-    -- Add bindings which show up as group name
-    register = {
-      -- first key is the mode, n == normal mode
-      n = {
-        -- second key is the prefix, <leader> prefixes
-        ["<leader>"] = {
-          -- third key is the key to bring up next level and its displayed
-          -- group name in which-key top level menu
-          ["b"] = { name = "Buffer" },
+    -- Modify which-key registration (Use this with mappings table in the above.)
+    ["which-key"] = {
+      -- Add bindings which show up as group name
+      register = {
+        -- first key is the mode, n == normal mode
+        n = {
+          -- second key is the prefix, <leader> prefixes
+          ["<leader>"] = {
+            -- third key is the key to bring up next level and its displayed
+            -- group name in which-key top level menu
+            ["b"] = { name = "Buffer" },
+          },
         },
       },
     },
@@ -215,6 +229,7 @@ local _options = {
     foldmethod = "expr",
   },
   g = {
+    python3_host_prog = "$HOME/.pyenv/versions/py3nvim/bin/python",
     mapleader = " ",
     -- lsp.formatting.format_on_save must be enabled
     autoformat_enabled = true,
@@ -225,6 +240,7 @@ local _options = {
     icons_enabled = true,
     ui_notifications_enabled = true,
     heirline_bufferline = false,
+    rooter_patterns = { ".git", "pyproject.toml", "package.json" },
   },
 }
 
