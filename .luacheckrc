@@ -7,6 +7,7 @@ globals = {
   "bit",
   "C",
   "packer_plugins",
+  -- "require",
 }
 
 -- Rerun tests only if their modification time changed

@@ -1,5 +1,5 @@
 local config = {
-  updater = { channel = "nightly", auto_reload = true },
+  updater = { channel = "stable", auto_reload = true },
 
   colorscheme = "duskfox",
 
@@ -73,7 +73,7 @@ local config = {
     root_dir = function() end,
 
     servers = {
-      -- "pyright"
+      "pyright",
     },
     ["server-settings"] = {
       zk = {
@@ -119,16 +119,24 @@ local config = {
       { "tpope/vim-surround" },
       { "airblade/vim-rooter" },
       { "EdenEast/nightfox.nvim" },
+      {
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+      },
+      { "junegunn/vim-easy-align" },
     },
     ["null-ls"] = function(config)
       local null_ls = require "null-ls"
       config.sources = {
-        null_ls.builtins.diagnostics.mypy,
+        null_ls.builtins.diagnostics.mypy.with {},
+        null_ls.builtins.diagnostics.shellcheck.with {
+          filetypes = { "sh", "bash", "zsh" },
+        },
       }
       return config
     end,
     treesitter = {
-      highlight = { enable = true },
+      highlight = { enable = true, additional_vim_regex_highlighting = true },
       fold = { enable = true },
       rainbow = { enable = true },
     },
@@ -138,7 +146,7 @@ local config = {
         "stylua",
         "luacheck",
         "jq",
-        "yammlint",
+        "yamllint",
         "shellcheck",
         "black",
         "isort",
@@ -148,6 +156,7 @@ local config = {
     ["mason-nvim-dap"] = {
       -- ensure_installed = { "python" },
     },
+
     luasnip = {
       filetype_extend = {
         -- javascript = { "javascriptreact" },
@@ -193,7 +202,7 @@ local config = {
       --   breadcrumbs = false, -- LSP symbols in the breadcrumbs
       --   file_icon = {
       --     winbar = false, -- Filetype icon in the winbar inactive windows
-      --     statusline = true, -- Filetype icon in the statusline
+      statusline = true, -- Filetype icon in the statusline
       --   },
       -- },
     },
@@ -227,19 +236,17 @@ require("nightfox").setup {
     all = {
       syntax = {
         builtin2 = "#ffffff",
-        -- builtin1 = "#fe8a9a",
-        -- builtin2 = "#fe8a9a",
-        -- const = "#fe8a9a",
-        -- func = "#fe8a9a",
-        -- variable = "#fe8a9a",
+        field = "#cccccc",
+        ident = "#00f0b0",
+        const = "#7aaaff",
+        -- keyword = "#7aaaff",
+        variable = "#fe8a9a",
         string = "#ecbb77",
         number = "#ff7700",
       },
     },
   },
 }
-
-if true then print "ok" end
 
 local _options = {
   opt = {
@@ -251,6 +258,9 @@ local _options = {
     foldenable = false,
     foldexpr = "nvim_treesitter#foldexpr()",
     foldmethod = "expr",
+    textwidth = 79,
+    formatoptions = "tcrqnj",
+    scrolloff = 3,
   },
   g = {
     python3_host_prog = "$HOME/.pyenv/versions/py3nvim/bin/python",
