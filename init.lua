@@ -106,6 +106,10 @@ local config = {
       -- mappings seen under group name "Buffer"
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+      ["<leader>rs"] = { ':lua require("neotest").summary.toggle({strategy = "dap"})<CR>', desc = "Neotest summary" },
+      ["<leader>rr"] = { ':lua require("neotest").run.run({strategy = "dap"})<CR>', desc = "Neotest run" },
+      ["<leader>ra"] = { ':lua require("neotest").run.attach()<CR>', desc = "Neotest attach" },
+      ["<leader>ro"] = { ':lua require("neotest").output.open()<CR>', desc = "Neotest output" },
     },
     t = {
       -- setting a mapping to false will disable it
@@ -124,6 +128,15 @@ local config = {
         run = function() vim.fn["mkdp#util#install"]() end,
       },
       { "junegunn/vim-easy-align" },
+      {
+        "nvim-neotest/neotest",
+        requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-treesitter/nvim-treesitter",
+          "antoinemadec/FixCursorHold.nvim",
+          "nvim-neotest/neotest-python",
+        },
+      },
     },
     ["null-ls"] = function(config)
       local null_ls = require "null-ls"
