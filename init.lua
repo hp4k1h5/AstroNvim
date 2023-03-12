@@ -1,8 +1,6 @@
 local config = {
   updater = { channel = "stable", auto_reload = true },
-
   colorscheme = "duskfox",
-
   header = {
     "                                                     ___",
     "                                                  ,o88888",
@@ -26,7 +24,6 @@ local config = {
     "         .. . .\"'",
     "        .",
   },
-
   -- Default theme configuration
   default_theme = {
     colors = {
@@ -66,12 +63,10 @@ local config = {
       ["which-key"] = true,
     },
   },
-
   diagnostics = { virtual_text = true, underline = true },
-
   lsp = {
-    root_dir = function() end,
-
+    root_dir = function()
+    end,
     servers = {
       "pyright",
     },
@@ -100,23 +95,25 @@ local config = {
       },
     },
   },
-
   mappings = {
     n = {
       -- mappings seen under group name "Buffer"
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+      ["gv"] = { ":vs<CR>gd" },
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-      ["<leader>rs"] = { ':lua require("neotest").summary.toggle({strategy = "dap"})<CR>', desc = "Neotest summary" },
-      ["<leader>rr"] = { ':lua require("neotest").run.run({strategy = "dap"})<CR>', desc = "Neotest run" },
+      ["<leader>rs"] = { ':lua require("neotest").summary.toggle()<CR>', desc = "Neotest summary" },
+      ["<leader>ro"] = { ':lua require("neotest").summary.open()<CR>', desc = "Neotest summary open" },
+      ["<leader>rc"] = { ':lua require("neotest").summary.close()<CR>', desc = "Neotest summary close" },
+      ["<leader>rr"] = { ':lua require("neotest").run.run()<CR>', desc = "Neotest run" },
+      ["<leader>rt"] = { ':lua require("neotest").run.stop()<CR>', desc = "Neotest stop" },
       ["<leader>ra"] = { ':lua require("neotest").run.attach()<CR>', desc = "Neotest attach" },
-      ["<leader>ro"] = { ':lua require("neotest").output.open()<CR>', desc = "Neotest output" },
+      ["<leader>rp"] = { ':lua require("neotest").output.open()<CR>', desc = "Neotest output" },
     },
     t = {
       -- setting a mapping to false will disable it
       -- ["<esc>"] = false,
     },
   },
-
   -- Configure plugins
   plugins = {
     init = {
@@ -127,6 +124,7 @@ local config = {
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
       },
+      { "mzlogin/vim-markdown-toc" },
       { "junegunn/vim-easy-align" },
       {
         "nvim-neotest/neotest",
@@ -169,7 +167,6 @@ local config = {
     ["mason-nvim-dap"] = {
       -- ensure_installed = { "python" },
     },
-
     luasnip = {
       filetype_extend = {
         -- javascript = { "javascriptreact" },
@@ -178,13 +175,11 @@ local config = {
         paths = {},
       },
     },
-
     ["nvim-autopairs"] = {
       map_c_h = true,
       map_c_w = true,
       map_bs = true,
     },
-
     cmp = {
       source_priority = {
         nvim_lsp = 1000,
@@ -193,7 +188,6 @@ local config = {
         path = 250,
       },
     },
-
     -- Customize Heirline options
     heirline = {
       -- -- Customize different separators between sections
@@ -219,7 +213,6 @@ local config = {
       --   },
       -- },
     },
-
     -- Modify which-key registration (Use this with mappings table in the above.)
     ["which-key"] = {
       -- Add bindings which show up as group name
@@ -236,8 +229,8 @@ local config = {
       },
     },
   },
-
-  polish = function() end,
+  polish = function()
+  end,
 }
 
 require("nightfox").setup {
