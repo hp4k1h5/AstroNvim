@@ -27,6 +27,7 @@ return {
             diff_context_lines = vim.o.scrolloff,
             entry_format = "state #$ID, $STAT, $TIME",
             time_format = "%d-%h-%m-%s",
+            saved_only = false,
           },
           -- other extensions:
           -- file_browser = { ... }
@@ -35,5 +36,39 @@ return {
       require("telescope").load_extension "undo"
       -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
     end,
+  },
+  {
+    "pwntester/octo.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      -- OR 'ibhagwan/fzf-lua',
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function() require("octo").setup() end,
+    lazy = false,
+  },
+  {
+    "nvim-telescope/telescope-media-files.nvim",
+    config = function()
+      require("telescope").load_extension "media_files"
+      require("telescope").setup {
+        extensions = {
+          media_files = {
+            -- filetypes whitelist
+            -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+            filetypes = { "png", "webp", "jpg", "jpeg" },
+            -- find command (defaults to `fd`)
+            find_cmd = "rg",
+          },
+        },
+      }
+    end,
+  },
+  {
+    "ANGkeith/telescope-terraform-doc.nvim",
+    ft = { "tf", "hcl" },
+    lazy = false,
+    config = function() require("telescope").load_extension "terraform_doc" end,
   },
 }
