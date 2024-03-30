@@ -46,19 +46,7 @@ local config = {
     servers = {
       "pyright",
     },
-    ["server-settings"] = {
-      zk = {
-        picker = "telescope",
-        lsp = {
-          config = {
-            cmd = { "zk", "lsp" },
-            name = "zk",
-            -- on_attach = ...
-          },
-          auto_attach = { enabled = true, filetypes = { "markdown" } },
-        },
-      },
-    },
+    ["server-settings"] = {},
     formatting = {
       format_on_save = {
         enabled = true,
@@ -76,14 +64,24 @@ local config = {
       -- mappings seen under group name "Buffer"
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
       ["gv"] = { ":vs<CR>gd" },
+      ["<leader>rq"] = { "<Plug>RestNvim", desc = "run the request under the cursor" },
+      ["<leader>rp"] = { "<Plug>RestNvimPreview", desc = "preview the request cURL command" },
+      ["<leader>rr"] = { "<Plug>RestNvimLast", desc = "re-run last request" },
+      -- editing
+      ["∆"] = { ":m .+1<CR>==", desc = "swap line below <option-j>" },
+      ["˚"] = { ":m .-2<CR>==", desc = "swap line above <option-k>" },
+    },
+    i = {
+      ["∆"] = { "<ESC>:m .+1<CR>==gi", desc = "swap line below" },
+      ["˚"] = { "<ESC>:m .-2<CR>==gi", desc = "swap line above" },
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-      ["<leader>rs"] = { ':lua require("neotest").summary.toggle()<CR>', desc = "Neotest summary" },
-      ["<leader>ro"] = { ':lua require("neotest").summary.open()<CR>', desc = "Neotest summary open" },
-      ["<leader>rc"] = { ':lua require("neotest").summary.close()<CR>', desc = "Neotest summary close" },
-      ["<leader>rr"] = { ':lua require("neotest").run.run()<CR>', desc = "Neotest run" },
-      ["<leader>rt"] = { ':lua require("neotest").run.stop()<CR>', desc = "Neotest stop" },
-      ["<leader>ra"] = { ':lua require("neotest").run.attach()<CR>', desc = "Neotest attach" },
-      ["<leader>rp"] = { ':lua require("neotest").output.open()<CR>', desc = "Neotest output" },
+      -- ["<leader>rs"] = { ':lua require("neotest").summary.toggle()<CR>', desc = "Neotest summary" },
+      -- ["<leader>ro"] = { ':lua require("neotest").summary.open()<CR>', desc = "Neotest summary open" },
+      -- ["<leader>rc"] = { ':lua require("neotest").summary.close()<CR>', desc = "Neotest summary close" },
+      -- ["<leader>rr"] = { ':lua require("neotest").run.run()<CR>', desc = "Neotest run" },
+      -- ["<leader>rt"] = { ':lua require("neotest").run.stop()<CR>', desc = "Neotest stop" },
+      -- ["<leader>ra"] = { ':lua require("neotest").run.attach()<CR>', desc = "Neotest attach" },
+      -- ["<leader>rp"] = { ':lua require("neotest").output.open()<CR>', desc = "Neotest output" },
     },
     t = {
       -- setting a mapping to false will disable it
@@ -104,16 +102,6 @@ local config = {
 --   run = function() vim.fn["mkdp#util#install"]() end,
 -- },
 -- { "mzlogin/vim-markdown-toc" },
--- { "junegunn/vim-easy-align" },
--- {
---   "nvim-neotest/neotest",
---   requires = {
---     "nvim-lua/plenary.nvim",
---     "nvim-treesitter/nvim-treesitter",
---     "antoinemadec/FixCursorHold.nvim",
---     "nvim-neotest/neotest-python",
---   },
--- },
 --   ["null-ls"] = function(config)
 --     local null_ls = require "null-ls"
 --     config.sources = {
