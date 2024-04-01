@@ -63,15 +63,17 @@ local config = {
     n = {
       -- mappings seen under group name "Buffer"
       ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-      ["gv"] = { ":vs<CR>gd" },
-      ["<leader>rq"] = { "<Plug>RestNvim", desc = "run the request under the cursor" },
-      ["<leader>rp"] = { "<Plug>RestNvimPreview", desc = "preview the request cURL command" },
-      ["<leader>rr"] = { "<Plug>RestNvimLast", desc = "re-run last request" },
+      ["gv"] = { ":vs<CR>gd", desc = "Open definition in split" },
+      -- ["<leader>rq"] = { "<Plug>RestNvim", desc = "run the request under the cursor" },
+      -- ["<leader>rp"] = { "<Plug>RestNvimPreview", desc = "preview the request cURL command" },
+      -- ["<leader>rr"] = { "<Plug>RestNvimLast", desc = "re-run last request" },
       -- editing
       ["∆"] = { ":m .+1<CR>==", desc = "swap line below <option-j>" },
       ["˚"] = { ":m .-2<CR>==", desc = "swap line above <option-k>" },
+      ["œ"] = { "vap:DB<CR>", desc = "Query the selection", silent = true },
     },
     i = {
+      ["œ"] = { "<ESC>vap:DB<CR>", desc = "Query the selection", silent = true },
       ["∆"] = { "<ESC>:m .+1<CR>==gi", desc = "swap line below" },
       ["˚"] = { "<ESC>:m .-2<CR>==gi", desc = "swap line above" },
       -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
@@ -86,6 +88,9 @@ local config = {
     t = {
       -- setting a mapping to false will disable it
       -- ["<esc>"] = false,
+    },
+    v = {
+      ["<leader>q"] = { ":DB<CR>", desc = "Query the selection", silent = true },
     },
   },
   -- Configure plugins
@@ -199,27 +204,6 @@ local config = {
 -- end,
 -- }
 
--- require("nightfox").setup {
---   options = {},
---   palettes = {
---     duskfox = { comment = "#bbaa77" },
---   },
---   specs = {
---     all = {
---       syntax = {
---         builtin2 = "#ffffff",
---         field = "#cccccc",
---         ident = "#00f0b0",
---         const = "#7aaaff",
---         -- keyword = "#7aaaff",
---         variable = "#fe8a9a",
---         string = "#ecbb77",
---         number = "#ff7700",
---       },
---     },
---   },
--- }
-
 local _options = {
   opt = {
     relativenumber = false,
@@ -233,6 +217,9 @@ local _options = {
     textwidth = 79,
     formatoptions = "tcrqnj",
     scrolloff = 3,
+    shortmess = "aoOtI",
+    --   shortmess=lnosTOIfitxF
+    cmdheight = 2,
   },
   g = {
     python3_host_prog = "python",
@@ -249,6 +236,27 @@ local _options = {
     rooter_patterns = { ".git", "pyproject.toml", "package.json" },
   },
 }
+
+-- vim.g.db_adapter_postgis = vim.g.db_adapter_postgres
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "sql", "mysql", "plsql" },
+  callback = function(args)
+    -- use db completion
+    require("cmp").setup.buffer { sources = { { name = "vim-dadbod-completion" } } }
+  end,
+})
+
+-- local mygroup = vim.api.nvim_create_augroup("vimrc", { clear = true })
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--   pattern = "*.html",
+--   group = mygroup,
+--   command = "set shiftwidth=4",
+-- })
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+--   pattern = "*.html",
+--   group = "vimrc", -- equivalent to group=mygroup
+--   command = "set expandtab",
+-- })
 
 local options = function(local_vim)
   local_vim.opt.whichwrap = vim.opt.whichwrap + "l,h"
