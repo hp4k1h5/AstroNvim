@@ -1,4 +1,31 @@
 return {
+  -- {
+  --   "nvim-telescope/telescope.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "debugloop/telescope-undo.nvim",
+  --   },
+  --   config = function()
+  --     require("telescope").setup {
+  --       -- the rest of your telescope config goes here
+  --       extensions = {
+  --         undo = {
+  --           use_delta = true,
+  --           use_custom_command = nil,
+  --           side_by_side = true,
+  --           diff_context_lines = vim.o.scrolloff,
+  --           entry_format = "state #$ID, $STAT, $TIME",
+  --           time_format = "%d-%h-%m-%s",
+  --           saved_only = false,
+  --         },
+  --         -- other extensions:
+  --         -- file_browser = { ... }
+  --       },
+  --     }
+  --     require("telescope").load_extension "undo"
+  --     -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+  --   end,
+  -- },
   {
     "dhruvmanila/browser-bookmarks.nvim",
     version = "*",
@@ -11,33 +38,6 @@ return {
     lazy = false,
   },
   {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "debugloop/telescope-undo.nvim",
-    },
-    config = function()
-      require("telescope").setup {
-        -- the rest of your telescope config goes here
-        extensions = {
-          undo = {
-            use_delta = true,
-            use_custom_command = nil,
-            side_by_side = true,
-            diff_context_lines = vim.o.scrolloff,
-            entry_format = "state #$ID, $STAT, $TIME",
-            time_format = "%d-%h-%m-%s",
-            saved_only = false,
-          },
-          -- other extensions:
-          -- file_browser = { ... }
-        },
-      }
-      require("telescope").load_extension "undo"
-      -- optional: vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
-    end,
-  },
-  {
     "pwntester/octo.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -46,7 +46,7 @@ return {
       "nvim-tree/nvim-web-devicons",
     },
     config = function() require("octo").setup() end,
-    lazy = false,
+    lazy = true,
   },
   {
     "nvim-telescope/telescope-media-files.nvim",

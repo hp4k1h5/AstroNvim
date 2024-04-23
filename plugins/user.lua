@@ -26,12 +26,13 @@ return {
       vim.g.dbs = {
         der_dev = os.getenv "DER_DATABASE_URL",
         der_stage = os.getenv "DER_STAGE_DATABASE_URL",
+        der_prod = os.getenv "DER_PROD_DATABASE_URL",
         --
         fo_dev = os.getenv "FORECASTING_DATABASE_URL",
         fo_stage = os.getenv "FORECASTING_STAGE_DATABASE_URL",
-
         --
         am_stage = "bigquery://kv-data-ameren-myigp.output_prod",
+        teco_stage = "bigquery://kv-de-data-teco-decentralize.output_prod",
       }
     end,
   },

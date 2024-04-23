@@ -32,6 +32,9 @@ telescope.setup(astronvim.user_plugin_opts("plugins.telescope", {
       n = { ["q"] = actions.close },
     },
   },
+  pickers = { find_files = {
+    theme = "dropdown",
+  } },
 }))
 
 astronvim.conditional_func(telescope.load_extension, pcall(require, "notify"), "notify")

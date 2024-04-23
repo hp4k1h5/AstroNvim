@@ -102,10 +102,6 @@ local config = {
   -- },
   polish = function() end,
 }
--- {
---   "iamcco/markdown-preview.nvim",
---   run = function() vim.fn["mkdp#util#install"]() end,
--- },
 -- { "mzlogin/vim-markdown-toc" },
 --   ["null-ls"] = function(config)
 --     local null_ls = require "null-ls"
@@ -117,11 +113,6 @@ local config = {
 --     }
 --     return config
 --   end,
---   treesitter = {
---     highlight = { enable = true, additional_vim_regex_highlighting = true },
---     fold = { enable = true },
---     rainbow = { enable = true },
---   },
 --   ["mason-lspconfig"] = { ensure_installed = { "sumneko_lua", "pyright" } },
 --   ["mason-null-ls"] = {
 --     ensure_installed = {
@@ -135,21 +126,14 @@ local config = {
 --       "mypy",
 --     },
 --   },
---   ["mason-nvim-dap"] = {
---     -- ensure_installed = { "python" },
---   },
---   luasnip = {
---     filetype_extend = {
---       -- javascript = { "javascriptreact" },
---     },
---     vscode = {
---       paths = {},
---     },
---   },
 --   ["nvim-autopairs"] = {
 --     map_c_h = true,
 --     map_c_w = true,
 --     map_bs = true,
+--   },
+
+--   ["mason-nvim-dap"] = {
+--     -- ensure_installed = { "python" },
 --   },
 --   cmp = {
 --     source_priority = {
@@ -159,50 +143,6 @@ local config = {
 --       path = 250,
 --     },
 --   },
---   -- Customize Heirline options
---   heirline = {
---     -- -- Customize different separators between sections
---     -- separators = {
---     --   tab = { "", "" },
---     -- },
---     -- -- Customize colors for each element each element has a `_fg` and a `_bg`
---     -- colors = function(colors)
---     --   colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
---     --   return colors
---     -- end,
---     -- -- Customize attributes of highlighting in Heirline components
---     -- attributes = {
---     --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
---     --   git_branch = { bold = true }, -- bold the git branch statusline component
---     -- },
---     -- -- Customize if icons should be highlighted
---     -- icon_highlights = {
---     --   breadcrumbs = false, -- LSP symbols in the breadcrumbs
---     --   file_icon = {
---     --     winbar = false, -- Filetype icon in the winbar inactive windows
---     statusline = true, -- Filetype icon in the statusline
---     --   },
---     -- },
---   },
---   -- Modify which-key registration (Use this with mappings table in the above.)
---   ["which-key"] = {
---     -- Add bindings which show up as group name
---     register = {
---       -- first key is the mode, n == normal mode
---       n = {
---         -- second key is the prefix, <leader> prefixes
---         ["<leader>"] = {
---           -- third key is the key to bring up next level and its displayed
---           -- group name in which-key top level menu
---           ["b"] = { name = "Buffer" },
---         },
---       },
---     },
---   },
--- },
--- polish = function()
--- end,
--- }
 
 local _options = {
   opt = {
